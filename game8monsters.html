@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+<title>STORIX</title>
+
+<style>
+
+#movingLetter {
+  position: absolute;
+  left: 33vw;
+  bottom: 100vh;
+  width: 10vw;
+  animation-name: movingLetterRiseFall;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+@keyframes movingLetterRiseFall {
+  0%    {bottom: 105vh;}
+  100%  {bottom: -30vh;}
+}
+
+#movingLetter2 {
+  animation-play-state: running;
+  position: absolute;
+  left: 33vw;
+  bottom: 100vh;
+  width: 10vw;
+  animation-name: movingLetterRiseFall2;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  animation-delay: 2s;
+}
+
+@keyframes movingLetterRiseFall2 {
+  0%    {bottom: 105vh;}
+  100%  {bottom: -30vh;}
+}
+
+span {
+font: #000000;
+font-size: 24px;
+display: inline-block;
+}
+
+#wholescreen {
+  background-image: url("images/bkgd.jpg");
+  background-size: 100% 100%;
+  position: fixed;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+}
+
+#statLetter1 {
+  display: block;
+  background-color: #FFFFFF;
+  border: 10px solid black;
+  font-family: "Arial";
+  font-size: 96pt;
+  position: absolute;
+  right: 73vw;
+  top: 55vh;
+  text-align: center;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+#statLetter2 {
+  display: block;
+  background-color: #FFFFFF;
+  border: 10px solid black;
+  font-family: "Arial";
+  font-size: 96pt;
+  position: absolute;
+  left: 49vw;
+  top: 55vh;
+  text-align: center;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+#redButton {
+  position: absolute;
+  left: 3vw;
+  bottom: 4vh;
+  width: 12.5vw;
+}
+
+#conveyorBelt1 {
+  background-image: url("images/belt.png");
+  background-size: 100% auto;
+  position: absolute;
+  left: 28vw;
+  top: -10vh;
+  height: 120%;
+  width: 4%;
+}
+
+#conveyorBelt2 {
+  background-image: url("images/belt.png");
+  background-size: 100% auto;
+  position: absolute;
+  left: 44vw;
+  top: -10vh;
+  height: 120%;
+  width: 4%;
+}
+
+#vocabPicture {
+  position: absolute;
+  border: 5px solid black;
+  left: 55vw;
+  top: 10vh;
+  width: 25vw;
+}
+
+#betweenBeltBkgd {
+  position: absolute;
+  background-color: #DFEFFFE0;
+  left: 31vw;
+  top: -20vh;
+  width: 14vw;
+  height: 120vh;
+}
+
+#acceptableArea {
+  position: absolute;
+  background-color: #FF000000;
+  top: 45vh;
+  left: 30vw;
+  height: 10vh;
+  width: 20vw;
+}
+
+/* @keyframes buttonMenuMonkey4Ani {
+  0%    {left: 70vw; top: 100vh;}
+  60%   {left: 70vw; top: 100vh;}
+  67.5%   {left: 55vw; top: 75vh;}
+  75%   {left: 70vw; top: 100vh;}
+  100%  {left: 70vw; top: 100vh;}
+} */
+
+#correctKid {
+  position: absolute;
+  left: 65vw;
+  top: 100vh;
+  height: 45vh;
+  animation-name: correctKidRiseFall;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  /*animation-timing-function: linear;*/
+  animation-play-state: paused;
+}
+
+@keyframes correctKidRiseFall {
+  0%    {top: 100vh;}
+  50%    {top: 55vh;}
+  100%  {top: 100vh;}
+}
+
+#incorrectKid {
+  position: absolute;
+  left: 65vw;
+  top: 100vh;
+  height: 45vh;
+  animation-name: incorrectKidRiseFall;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  /*animation-timing-function: linear;*/
+  animation-play-state: paused;
+}
+
+@keyframes incorrectKidRiseFall {
+  0%    {top: 100vh;}
+  50%    {top: 55vh;}
+  100%  {top: 100vh;}
+}
+
+#wrongX {
+  display: none;
+  width: 36vw;
+  /* height: 30vh; */
+  position: absolute;
+  left: 20vw;
+  top: 55vh;
+}
+
+#gameOverScreen {
+  background-color: #48ACFF;
+  display: block;
+  position: fixed;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  animation-name: gameOverScreenDrop;
+  animation-play-state: paused;
+  animation-duration: 3s;
+}
+
+@keyframes gameOverScreenDrop {
+  0%    {top: -100vh;}
+  100%  {top: 0vh;}
+}
+
+#HKgif {
+  position: absolute;
+  bottom: 0;
+  width: 60vw;
+  left: 20vw;
+}
+
+
+
+
+</style>
+
+</head>
+
+<script>
+
+var miniAlphabet = ["K","L","N","P","T","W"];
+var vocabulary = ["ski","snail","skunk","spoon","slope","stadium","name","winner"];
+var vocabWordAfterSplit = ["I","AIL","UNK","OON","OPE","ADIUM","AME","INNER"];
+var vocabularyTargetLetter = ["K","N","K","P","L","T","N","W"];
+var gradientColorArray = ["0","1","2","#D94141","#4368BE","#68CC43","#FFFF43","#A030C8","#000000","#683800","#E88828"];
+var recentLetterRecord = [];
+
+var randomNo;
+
+var randomLetterImgFile = "images/letterK.png";
+var currentVocabularyIndex = 0;
+
+window.onload = function() {
+  var letterFilename = generateRandomLetterFilename();
+  document.getElementById("movingLetter").src = letterFilename;
+  var letterFilename2 = generateRandomLetterFilename();
+  document.getElementById("movingLetter2").src = letterFilename2;
+
+  var correctKid = document.getElementById("correctKid");
+  var incorrectKid = document.getElementById("incorrectKid");
+
+  var heightOfStaticLetters = document.getElementById("statLetter2").offsetHeight;
+  //console.log(heightOfStaticLetters);
+  document.getElementById("wrongX").style.height = heightOfStaticLetters + "px";
+
+  correctKid.addEventListener('animationiteration', () => {
+    currentVocabularyIndex++;
+    document.getElementById("vocabPicture").src = "images/" + vocabulary[currentVocabularyIndex] + ".png";
+    document.getElementById("movingLetter").style.animationPlayState = "running";
+    document.getElementById("movingLetter2").style.animationPlayState = "running";
+    document.getElementById("correctKid").style.animationPlayState = "paused";
+    document.getElementById("statLetter2").innerHTML = vocabWordAfterSplit[currentVocabularyIndex];
+    if (vocabulary[currentVocabularyIndex] == "name") {
+      document.getElementById("statLetter1").style.display = "none";
+    }
+  });
+
+  incorrectKid.addEventListener('animationiteration', () => {
+    document.getElementById("movingLetter").style.animationPlayState = "running";
+    document.getElementById("movingLetter2").style.animationPlayState = "running";
+    document.getElementById("incorrectKid").style.animationPlayState = "paused";
+    document.getElementById("wrongX").style.display = "none";
+  });
+
+}
+
+
+
+function generateRandomLetterFilename() {         // here's where the next random letter is actually chosen
+  // we'll add a little extra code so that the user isn't waiting TOO long for the correct letter
+
+  var randomInt = Math.floor((Math.random() * miniAlphabet.length ));
+  var randomLetter = miniAlphabet[randomInt];
+  if (recentLetterRecord.length > 4) {
+    randomLetter = vocabularyTargetLetter[currentVocabularyIndex];
+  }
+  var letterFilename = "images/letter" + randomLetter + ".png";
+  recentLetterRecord.push(randomLetter);
+  console.log(recentLetterRecord);
+  //console.log(recentLetterRecord.length);
+  //console.log(vocabularyTargetLetter[currentVocabularyIndex]);
+  if (randomLetter == vocabularyTargetLetter[currentVocabularyIndex]) {
+    recentLetterRecord = [];
+  }
+  return letterFilename;
+}
+
+function changeLetterImg(imageOneOrTwo) {
+  var letterFilename = generateRandomLetterFilename();
+  document.getElementById(imageOneOrTwo).src = letterFilename;
+}
+
+function buttonPushed() {
+
+  var viewHeight = document.documentElement.clientHeight;
+
+  var positionOfLetter1 = document.getElementById("movingLetter").getBoundingClientRect();
+  var positionOfLetter2 = document.getElementById("movingLetter2").getBoundingClientRect();
+  //
+  //console.log(positionOfLetter2.top, positionOfLetter2.right, positionOfLetter2.bottom, positionOfLetter2.left);
+
+  if (positionOfLetter1.top >= 0.42*viewHeight && positionOfLetter1.top <= 0.58*viewHeight) {
+    //console.log("Letter 1: " + positionOfLetter1.top, positionOfLetter1.right, positionOfLetter1.bottom, positionOfLetter1.left);
+    beltStoppedInRange(document.getElementById("movingLetter"));
+  }
+  if (positionOfLetter2.top >= 0.42*viewHeight && positionOfLetter2.top <= 0.58*viewHeight) {
+    //console.log("Letter 2: " + positionOfLetter2.top, positionOfLetter2.right, positionOfLetter2.bottom, positionOfLetter2.left);
+    beltStoppedInRange(document.getElementById("movingLetter2"));
+  }
+}
+
+function beltStoppedInRange(element) {
+
+  // myRules.cssRules[0] is the CSS rules for the first element in the CSS rule section; as of right now, that's #movingLetter.
+  // Then letterElementCSS[0] is the first rule for that element; [1] is the second, etc.
+  //console.log("stopped the belt!");
+  //console.log(vocabularyTargetLetter[currentVocabularyIndex]);
+
+  document.getElementById("movingLetter").style.animationPlayState = "paused";
+  document.getElementById("movingLetter2").style.animationPlayState = "paused";
+
+  if (vocabularyTargetLetter[currentVocabularyIndex] == element.src[element.src.length-5]) {  // right answer!
+    if (currentVocabularyIndex == 7) {    // there are 8 words in our game
+      document.getElementById("gameOverScreen").style.animationPlayState = "running";
+    } else {
+      document.getElementById("correctKid").style.animationPlayState = "running";
+    }
+  } else {    // wrong answer!
+    //document.getElementById("statLetter1").style.color = "red";
+    document.getElementById("incorrectKid").style.animationPlayState = "running";
+    document.getElementById("wrongX").style.display = "block";
+  }
+
+
+  //let allCSSRules = document.styleSheets[0];//, p = document.querySelector('.output');
+  //var letterElementCSS = allCSSRules.cssRules[0].style;
+  //var letter2ElementCSS = allCSSRules.cssRules[2].style;
+
+  //letterElementCSS.setProperty("animationPlayState","paused");
+  //letter2ElementCSS.setProperty("animationPlayState","paused");
+  //console.log(letterElementCSS[6]);
+  //console.log(letterElementCSS);
+
+  ////////////////////myRules.deleteRule(1);
+
+  //letterElementCSS.setProperty("left","36vw");
+  //letterElementCSS.setProperty("animation-duration","1s");
+  //letterElementCSS.setProperty("animation-iteration-count","1");
+  //myRules.insertRule("@keyframes movingLetterRiseFall { 0% {top: 25vh;}  100% {top: 59vh;} }",1);
+}
+
+</script>
+
+<body>
+<!-- <body onload="showAll()"> -->
+
+<div id="wholescreen">
+
+<div id="statLetter1">S</div>
+<div id="statLetter2">I</div>
+
+<img id="redButton" src="images/redButton.png" onclick="buttonPushed()">
+<img id="vocabPicture" src="images/ski.png">
+
+<div id="betweenBeltBkgd"></div>
+<div id="conveyorBelt1"></div>
+<div id="conveyorBelt2"></div>
+
+<img id="movingLetter" src="images/letterL.png" onanimationiteration="changeLetterImg(this.id)">
+<img id="movingLetter2" src="images/letterK.png" onanimationiteration="changeLetterImg(this.id)">
+
+<div id="acceptableArea"></div>
+
+<img id="correctKid" src="images/correctKid.png">
+<img id="incorrectKid" src="images/incorrectKid.png">
+
+<img id="wrongX" src="images/wrongX.png">
+
+</div> <!-- this is the WHOLESCREEN div -->
+
+<div id="gameOverScreen">
+<img id="HKgif" src="images/goodjobHK.gif">
+</div>
+
+
+
+
+</body>
+</html>
