@@ -1,0 +1,417 @@
+<html>
+<head>
+<title>STORIX</title>
+
+<style>
+
+#movingLetter {
+  position: absolute;
+  left: -21vw;
+  bottom: 55vh;
+  height: 15vw;
+  animation-name: movingLetterRiseFall;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes movingLetterRiseFall {
+  0%    {left: -21vw;}
+  100%  {left: 100vw;}
+}
+
+span {
+font: #000000;
+font-size: 24px;
+display: inline-block;
+}
+
+#wholescreen {
+background-image: url("bkgd3.jpg");
+background-size: 100% 100%;
+position: fixed;
+left: 0%;
+width: 100%;
+height: 100%;
+top: 0px;
+}
+
+#whiteboard {
+  display: block;
+  background-color: #FFFFFF;
+  border: 10px solid black;
+  font-family: "Arial";
+  font-size: 96pt;
+  position: absolute;
+  padding-left: 50px;
+  width: 50%;
+  height: 30%;
+  left: 25%;
+  top: 55%;
+}
+
+#redButton {
+  position: absolute;
+  right: 6vw;
+  top: 6vh;
+  width: 6vw;
+}
+
+#conveyorBelt {
+  background-image: url("belt.png");
+  background-size: auto 100%;
+  position: absolute;
+  left: -20vw;
+  top: 37.5vh;
+  height: 100px;
+  width: 140%}
+
+#vocabPicture {
+  position: absolute;
+  border: 5px solid black;
+  left: 7.5vw;
+  top: 65vh;
+  width: 15vw;
+}
+
+#svgHTP {
+  position: absolute;
+  display: none;
+  left: 10%;
+  top: 45%;
+  width: 35%;
+  height: 80px;
+}
+
+#svgGO {
+  position: absolute;
+  display: none;
+  left: 10%;
+  top: 65%;
+  width: 25%;
+  height: 80px;
+}
+
+#numberbuttons {
+  display: none;
+}
+
+.numberButton {
+  font: 48pt sans-serif;
+  color: #FFFFFF;
+}
+
+#button3 {
+  position: absolute;
+  width: 10vw;
+  left: 15%;
+  top: 5%;
+}
+
+#button4 {
+  position: absolute;
+  width: 10%;
+  left: 35%;
+  top: 5%;
+}
+
+#button5 {
+  position: absolute;
+  width: 10%;
+  left: 55%;
+  top: 5%;
+}
+
+#button6 {
+  color: #000000;
+  position: absolute;
+  width: 10%;
+  left: 75%;
+  top: 5%;
+}
+
+#button7 {
+  position: absolute;
+  width: 10%;
+  left: 15%;
+  top: 30%;
+}
+
+#button8 {
+  position: absolute;
+  width: 10%;
+  left: 35%;
+  top: 30%;
+}
+
+#button9 {
+  position: absolute;
+  width: 10%;
+  left: 55%;
+  top: 30%;
+}
+
+#button10 {
+  position: absolute;
+  width: 10%;
+  left: 75%;
+  top: 30%;
+}
+
+#buttonMenuMonkey1 {
+  display: none;
+  position: fixed;
+  height: 40%;
+  top: 55%;
+  animation-name: buttonMenuMonkey1Ani;
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+/* @keyframes buttonMenuMonkey1Ani {
+  0%    {right: 100vw;}
+  7.5%  {right: 60vw;}
+  15%   {right: 100vw;}
+  100%  {right: 100vw;}
+} */
+
+#buttonMenuMonkey2 {
+  display: none;
+  position: fixed;
+  height: 40%;
+  top: 55%;
+  animation-name: buttonMenuMonkey2Ani;
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+/* @keyframes buttonMenuMonkey2Ani {
+  0%    {left: 100vw;}
+  20%   {left: 100vw;}
+  27.5%   {left: 74vw;}
+  35%   {left: 100vw;}
+  100%  {left: 100vw;}
+} */
+
+#buttonMenuMonkey3 {
+  display: none;
+  position: fixed;
+  height: 50%;
+  left: 42.5%;
+  animation-name: buttonMenuMonkey3Ani;
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+/* @keyframes buttonMenuMonkey3Ani {
+  0%    {bottom: 100vh;}
+  40%   {bottom: 100vh;}
+  47.5%   {bottom: 20vh;}
+  55%   {bottom: 100vh;}
+  100%  {bottom: 100vh;}
+} */
+
+#buttonMenuMonkey4 {
+  display: none;
+  position: fixed;
+  height: 40%;
+  top: 100%;
+  animation-name: buttonMenuMonkey4Ani;
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+/* @keyframes buttonMenuMonkey4Ani {
+  0%    {left: 70vw; top: 100vh;}
+  60%   {left: 70vw; top: 100vh;}
+  67.5%   {left: 55vw; top: 75vh;}
+  75%   {left: 70vw; top: 100vh;}
+  100%  {left: 70vw; top: 100vh;}
+} */
+
+#buttonMenuMonkey5 {
+  display: none;
+  position: fixed;
+  height: 60%;
+  left: 42.5%;
+  animation-name: buttonMenuMonkey5Ani;
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+/* @keyframes buttonMenuMonkey5Ani {
+  0%    {bottom: 100vh;}
+  80%   {bottom: 100vh;}
+  87.5%   {bottom: 20vh;}
+  95%   {bottom: 100vh;}
+  100%  {bottom: 100vh;}
+} */
+
+#wordDisplay {
+  display: none;
+  position: absolute;
+  height: 66.6667%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#monkeyGif {
+  display: none;
+  position: absolute;
+  left: 0%;
+  top: 0%;
+  width: 100%;
+  height: 100%;
+}
+
+</style>
+
+</head>
+
+<script>
+
+var miniAlphabet = ["K","L","T","P","M","N","W","H"];
+var gradientColorArray = ["0","1","2","#D94141","#4368BE","#68CC43","#FFFF43","#A030C8","#000000","#683800","#E88828"]
+
+var randomNo;
+
+var randomLetterImgFile = "letterK.gif";
+
+var letterImgBlock = document.getElementById("movingLetter")
+letterImgBlock.addEventListener("animationend",changeLetterImg(randomLetterImgFile));
+
+// function showNumberButtonMenu() {
+//   document.getElementById("numberbuttons").style.display = "block";
+//   document.getElementById("buttonMenuMonkey1").style.display = "block";
+//   document.getElementById("buttonMenuMonkey2").style.display = "block";
+//   document.getElementById("buttonMenuMonkey3").style.display = "block";
+//   document.getElementById("buttonMenuMonkey4").style.display = "block";
+//   document.getElementById("buttonMenuMonkey5").style.display = "block";
+//
+//   document.getElementById("title").style.display = "none";
+//   document.getElementById("svgHTP").style.display = "none";
+//   document.getElementById("svgGO").style.display = "none";
+//   document.getElementById("wordDisplay").style.display = "none";
+//   document.getElementById("redButton").style.display = "none";
+//   document.getElementById("movingLetter").style.display = "none";
+//   document.getElementById("conveyorBelt").style.display = "none";
+//   document.getElementById("vocabPicture").style.display = "none";
+//   document.getElementById("monkeyGif").style.display = "none";
+//
+//   document.getElementById("wholescreen").style.backgroundImage = "url('img/other/bkgd.png')";
+// }
+
+// function getWord(letterCount) {
+//   document.getElementById("wordDisplay").style.display = "block";
+//
+//   document.getElementById("title").style.display = "none";
+//   document.getElementById("svgHTP").style.display = "none";
+//   document.getElementById("svgGO").style.display = "none";
+//   document.getElementById("numberbuttons").style.display = "none";
+//   document.getElementById("buttonMenuMonkey1").style.display = "none";
+//   document.getElementById("buttonMenuMonkey2").style.display = "none";
+//   document.getElementById("buttonMenuMonkey3").style.display = "none";
+//   document.getElementById("buttonMenuMonkey4").style.display = "none";
+//   document.getElementById("buttonMenuMonkey5").style.display = "none";
+//
+//   document.getElementById("wholescreen").style.backgroundImage = "linear-gradient(" + gradientColorArray[letterCount] + ", #FFFFFF 66.7%)";
+//
+//   var dictionarySize = dictionaryOfDictionaries[letterCount].length;
+//   var randomWordNumber = Math.floor(Math.random()*dictionarySize);
+//   var randomWord = dictionaryOfDictionaries[letterCount][randomWordNumber];
+//   //console.log(randomWord);
+//
+//   document.getElementById("wordDisplay").src = "img/words/" + letterCount + randomWord + ".png";
+//   document.getElementById('wordDisplay').setAttribute('onerror','this.onerror=null;this.src="img/words/' + letterCount + randomWord + '.gif";'); // this substitutes a .gif ending for the image file if a .png with that name isn't found.
+// }
+
+
+
+
+
+function dropLetter() {
+
+  let myRules = document.styleSheets[0];//, p = document.querySelector('.output');
+  var letterElementCSS = myRules.cssRules[0].style;
+  console.log(myRules);
+  console.log(letterElementCSS);
+  myRules.deleteRule(1);
+  letterElementCSS.setProperty("left","36vw");
+  letterElementCSS.setProperty("animation-duration","1s");
+  letterElementCSS.setProperty("animation-iteration-count","1");
+  myRules.insertRule("@keyframes movingLetterRiseFall { 0% {top: 25vh;}  100% {top: 59vh;} }",1);
+}
+
+function changeLetterImg(currentFile) {
+  var randomInt = Math.floor((Math.random() * miniAlphabet.length ) + 1);
+  console.log(randomInt);
+
+
+}
+
+
+</script>
+
+<body>
+<!-- <body onload="showAll()"> -->
+
+<div id="wholescreen">
+
+<div id="whiteboard">S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I</div>
+
+<svg id="svgHTP" onclick="getWord(3)">
+  <defs>
+    <linearGradient id="grad1" x1="75%" y1="0%" x2="25%" y2="100%">
+      <stop offset="49%" style="stop-color:#FF0;stop-opacity:1" />
+      <stop offset="51%" style="stop-color:#BB0;stop-opacity:1" />
+    </linearGradient>
+    <filter id="f1" x="0" y="0" width="200%" height="200%">
+      <feOffset result="offOut" in="SourceAlpha" dx="2" dy="2" />
+      <feGaussianBlur result="blurOut" in="offOut" stdDeviation="2" />
+      <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+    </filter>
+  </defs>
+  <rect x="0%" y="0%" rx="40" ry="40" width="100%" height="100%" fill="url(#grad1)" style="stroke:black;stroke-width:2" />
+  <text x="25%" y="50%" fill="#BB00BB" dominant-baseline="middle" text-align="right" font-size="4.5vw" font-family="Calibri" font-weight="bold" filter="url(#f1)" onclick="getWord(3)">how to play</text>
+</svg>
+
+<svg id="svgGO">
+  <defs>
+    <linearGradient id="grad1" x1="75%" y1="0%" x2="25%" y2="100%">
+      <stop offset="49%" style="stop-color:#FF0;stop-opacity:1" />
+      <stop offset="51%" style="stop-color:#BB0;stop-opacity:1" />
+    </linearGradient>
+    <filter id="f1" x="0" y="0" width="200%" height="200%">
+      <feOffset result="offOut" in="SourceAlpha" dx="2" dy="2" />
+      <feGaussianBlur result="blurOut" in="offOut" stdDeviation="2" />
+      <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+    </filter>
+  </defs>
+  <rect x="0%" y="0%" rx="40" ry="40" width="100%" height="100%" fill="url(#grad1)" style="stroke:black;stroke-width:2" onclick="showNumberButtonMenu()" />
+  <text x="50%" y="50%" fill="#BB00BB" dominant-baseline="middle" text-anchor="middle" font-size="4.5vw" font-family="Calibri" font-weight="bold" filter="url(#f1)" onclick="showNumberButtonMenu()">go!</text>
+</svg>
+
+<div id="conveyorBelt"></div>
+<img id="vocabPicture" src="ski.jpg">
+
+<img id="redButton" src="redButton.png" onclick="dropLetter()">
+<img id="movingLetter" src="letterK.gif">
+
+
+<img id="wordDisplay" src="img/other/image13.png" onclick="getMonkeyGif()">
+<img id="monkeyGif" src="img/other/image13.png" onclick="showNumberButtonMenu()">
+
+</div> <!-- this is the WHOLESCREEN div -->
+
+
+
+
+</body>
+</html>

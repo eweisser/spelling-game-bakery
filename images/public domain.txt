@@ -1,0 +1,16 @@
+PD
+	baking kid
+	belt
+	bkgd
+	green button
+	name
+	ski
+	skunk
+	slope
+	snail
+	spoon
+	stadium
+	winner
+
+not PD
+	end screen
