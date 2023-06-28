@@ -93,6 +93,7 @@ display: inline-block;
 
 #greenButton {
   position: absolute;
+  display: none;
   left: 3vw;
   bottom: 4vh;
   width: 12.5vw;
@@ -298,6 +299,11 @@ var randomLetterImgFile = "images/letterS.png";
 var currentVocabularyIndex = 0;
 
 window.onload = function() {
+
+  var startingPicturePos = document.getElementById("startingPictureGif").getBoundingClientRect();
+  var bodyDimensions = document.body.getBoundingClientRect();
+  document.getElementById("startingPictureGif").style.left = (bodyDimensions.width-startingPicturePos.width)/2 + "px";
+
   var letterFilename = generateRandomLetterFilename();
   document.getElementById("movingLetter").src = letterFilename;
   var letterFilename2 = generateRandomLetterFilename();
@@ -590,7 +596,7 @@ function generateCupcakesAfterWin() {
 <div id="wholescreen">
 
   <div id="startingCurtain">
-    <img id="startingPictureGif" src="images/startingHippo.png" onclick="startingPictureGoUp()">
+    <img id="startingPictureGif" src="images/cupcake vanilla.png" onclick="startingPictureGoUp()">
     CUPCAKE<br>WORDS
     <div id="imgCreditReq" onclick="displayImageCredits()">
       Image and sound credits
