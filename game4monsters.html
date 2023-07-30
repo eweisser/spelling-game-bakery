@@ -45,6 +45,14 @@
   100%  {bottom: -30vh;}
 }
 
+#gameTitle {
+  margin: 50px 0;
+  position: absolute;
+  text-align: center;
+  top: 0vw;
+  width: 100%;
+}
+
 span {
 font: #000000;
 font-size: 24px;
@@ -59,21 +67,6 @@ display: inline-block;
   width: 100%;
   height: 100%;
   top: 0px;
-}
-
-#statLetter1 {
-  display: block;
-  display: none;
-  background-color: #FFFFFF;
-  border: 10px solid black;
-  font-family: "Arial";
-  font-size: 96pt;
-  position: absolute;
-  right: 73vw;
-  top: 55vh;
-  text-align: center;
-  padding-right: 10px;
-  padding-left: 10px;
 }
 
 #statLetter2 {
@@ -157,7 +150,6 @@ display: inline-block;
   animation-name: correctKidRiseFall;
   animation-duration: 3s;
   animation-iteration-count: infinite;
-  /*animation-timing-function: linear;*/
   animation-play-state: paused;
 }
 
@@ -175,7 +167,6 @@ display: inline-block;
   animation-name: incorrectKidRiseFall;
   animation-duration: 3s;
   animation-iteration-count: infinite;
-  /*animation-timing-function: linear;*/
   animation-play-state: paused;
 }
 
@@ -187,17 +178,17 @@ display: inline-block;
 
 #startingCurtain {
   display: block;
-  position: fixed;
   left: 0%;
-  width: 100%;
   height: 100%;
-  top: 0px;
   text-align: center;
   font-family: "Segoe UI","Impact","Georgia","Wide Latin";
   font-weight: bold;
   color: #30b000;
-  font-size: 10vw;
+  font-size: 12vw;
+  position: fixed;
   text-shadow: 4px 8px #185604;
+  top: 0px;
+  width: 100%;
   animation-name: gameStartScreenUp;
   animation-play-state: paused;
   animation-iteration-count: 1;
@@ -211,12 +202,10 @@ display: inline-block;
   100%  {top: -100vh;}
 }
 
-#startingPictureGif {
-  position: absolute;
+#startingCurtainPicture {
+  margin: 80px auto;
   z-index: -1;
-  bottom: 10vh;
   height: 80vh;
-  left: 0vw;
 }
 
 #imgCreditReq {
@@ -251,7 +240,6 @@ display: inline-block;
 #wrongX {
   display: none;
   width: 26vw;
-  /* height: 30vh; */
   position: absolute;
   left: 25vw;
   top: 55vh;
@@ -310,9 +298,9 @@ var currentVocabularyIndex = 0;
 
 window.onload = function() {
 
-  var startingPicturePos = document.getElementById("startingPictureGif").getBoundingClientRect();
+  var startingPicturePos = document.getElementById("startingCurtainPicture").getBoundingClientRect();
   var bodyDimensions = document.body.getBoundingClientRect();
-  document.getElementById("startingPictureGif").style.left = (bodyDimensions.width-startingPicturePos.width)/2 + "px";
+  // document.getElementById("startingCurtainPicture").style.left = (bodyDimensions.width-startingPicturePos.width)/2 + "px";
 
   var letterFilename = generateRandomLetterFilename();
   document.getElementById("movingLetter").src = letterFilename;
@@ -322,10 +310,6 @@ window.onload = function() {
   var correctKid = document.getElementById("correctKid");
   var incorrectKid = document.getElementById("incorrectKid");
 
-  var heightOfStaticLetters = document.getElementById("statLetter2").offsetHeight;
-  //console.log(heightOfStaticLetters);
-  document.getElementById("wrongX").style.height = heightOfStaticLetters + "px";
-
   correctKid.addEventListener('animationiteration', () => {
     currentVocabularyIndex++;
     document.getElementById("vocabPicture").src = "images/" + vocabulary[currentVocabularyIndex] + ".png";
@@ -333,9 +317,6 @@ window.onload = function() {
     document.getElementById("movingLetter2").style.animationPlayState = "running";
     document.getElementById("correctKid").style.animationPlayState = "paused";
     document.getElementById("statLetter2").innerHTML = vocabWordAfterSplit[currentVocabularyIndex];
-    if (vocabulary[currentVocabularyIndex] == "name") {
-      document.getElementById("statLetter1").style.display = "none";
-    }
   });
 
   incorrectKid.addEventListener('animationiteration', () => {
@@ -368,7 +349,6 @@ function displayAfterStart() {
   document.getElementById("conveyorBelt1").style.display = "block";
   document.getElementById("conveyorBelt2").style.display = "block";
   document.getElementById("vocabPicture").style.display = "block";
-  document.getElementById("statLetter1").style.display = "block";
   document.getElementById("statLetter2").style.display = "block";
   document.getElementById("greenButton").style.display = "block";
 }
@@ -386,8 +366,6 @@ function generateRandomLetterFilename() {         // here's where the next rando
   var letterFilename = "images/letter" + randomLetter + ".png";
   recentLetterRecord.push(randomLetter);
   console.log(recentLetterRecord);
-  //console.log(recentLetterRecord.length);
-  //console.log(vocabularyTargetLetter[currentVocabularyIndex]);
   if (randomLetter == vocabularyTargetLetter[currentVocabularyIndex]) {
     recentLetterRecord = [];
   }
@@ -405,15 +383,11 @@ function buttonPushed() {
 
   var positionOfLetter1 = document.getElementById("movingLetter").getBoundingClientRect();
   var positionOfLetter2 = document.getElementById("movingLetter2").getBoundingClientRect();
-  //
-  //console.log(positionOfLetter2.top, positionOfLetter2.right, positionOfLetter2.bottom, positionOfLetter2.left);
 
   if (positionOfLetter1.top >= 0.42*viewHeight && positionOfLetter1.top <= 0.58*viewHeight) {
-    //console.log("Letter 1: " + positionOfLetter1.top, positionOfLetter1.right, positionOfLetter1.bottom, positionOfLetter1.left);
     beltStoppedInRange(document.getElementById("movingLetter"));
   }
   if (positionOfLetter2.top >= 0.42*viewHeight && positionOfLetter2.top <= 0.58*viewHeight) {
-    //console.log("Letter 2: " + positionOfLetter2.top, positionOfLetter2.right, positionOfLetter2.bottom, positionOfLetter2.left);
     beltStoppedInRange(document.getElementById("movingLetter2"));
   }
 }
@@ -422,14 +396,12 @@ function beltStoppedInRange(element) {
 
   // myRules.cssRules[0] is the CSS rules for the first element in the CSS rule section; as of right now, that's #movingLetter.
   // Then letterElementCSS[0] is the first rule for that element; [1] is the second, etc.
-  //console.log("stopped the belt!");
-  //console.log(vocabularyTargetLetter[currentVocabularyIndex]);
 
   document.getElementById("movingLetter").style.animationPlayState = "paused";
   document.getElementById("movingLetter2").style.animationPlayState = "paused";
 
   if (vocabularyTargetLetter[currentVocabularyIndex] == element.src[element.src.length-5]) {  // right answer!
-    if (currentVocabularyIndex == 1) {    // there are 8 words in our game; if they spell the last word right...
+    if (currentVocabularyIndex == 7) {    // there are 8 words in our game; if they spell the last word right...
       document.getElementById("gameOverScreen").style.animationPlayState = "running";     // drop the "game over" screen
       generateCupcakesAfterWin();   // run the flying cupcakes animation
       window.setInterval(generateCupcakesAfterWin, 800);
@@ -437,27 +409,12 @@ function beltStoppedInRange(element) {
       document.getElementById("correctKid").style.animationPlayState = "running";     // run the little girl "right answer" animation
     }
   } else {    // wrong answer!
-    //document.getElementById("statLetter1").style.color = "red";
     document.getElementById("incorrectKid").style.animationPlayState = "running";
+    var heightOfStaticLetters = document.getElementById("statLetter2").offsetHeight;
+    document.getElementById("wrongX").style.height = heightOfStaticLetters + "px";
     document.getElementById("wrongX").style.display = "block";
   }
 
-
-  //let allCSSRules = document.styleSheets[0];//, p = document.querySelector('.output');
-  //var letterElementCSS = allCSSRules.cssRules[0].style;
-  //var letter2ElementCSS = allCSSRules.cssRules[2].style;
-
-  //letterElementCSS.setProperty("animationPlayState","paused");
-  //letter2ElementCSS.setProperty("animationPlayState","paused");
-  //console.log(letterElementCSS[6]);
-  //console.log(letterElementCSS);
-
-  ////////////////////myRules.deleteRule(1);
-
-  //letterElementCSS.setProperty("left","36vw");
-  //letterElementCSS.setProperty("animation-duration","1s");
-  //letterElementCSS.setProperty("animation-iteration-count","1");
-  //myRules.insertRule("@keyframes movingLetterRiseFall { 0% {top: 25vh;}  100% {top: 59vh;} }",1);
 }
 
 function generateCupcakesAfterWin() {
@@ -467,41 +424,14 @@ function generateCupcakesAfterWin() {
     
     var newCupcake = document.createElement("IMG");
     newCupcake.setAttribute("class", "cupcakeImgElement");
-    // newCupcake.style.transform = "rotate(0deg)";
     var randomLetter = String.fromCharCode(65 + Math.random()*26);           // this was for the whole alphabet
     var awaitedLetter = "";
 
-    // for (letter of miniAlphabet) {
-    //   if (currentVocabWord.startsWith(document.getElementById("lettersCaptured").innerHTML + letter.toLowerCase())) {
-    //     awaitedLetter = letter;
-    //     break;
-    //   }
-    // }
-    // if (recentLetterRecord.length > 2 && awaitedLetter != "") {    // we'll force it to be the needed letter
-    //   randomLetter = awaitedLetter;
-    // }
-
-    // recentLetterRecord.push(randomLetter);
-    // if (currentVocabWord.startsWith(document.getElementById("lettersCaptured").innerHTML + randomLetter.toLowerCase())) {
-    //   recentLetterRecord = [];
-    // }
-
-    // console.log(document.getElementById("lettersCaptured").innerHTML + randomLetter);
-    // console.log(recentLetterRecord);
-
     newCupcake.style.width = "9vw";         // used to be 10vw
-    // newCupcake.style.zIndex = "-1";
 
     do {
       var randomAngle = Math.random()*360;
     } while ( (randomAngle >= 30 && randomAngle <= 150) || (randomAngle >= 210 && randomAngle <= 330) );
-
-
-    // if (randomAngle > 150 && randomAngle < 210) {
-    //   newCupcake.src = "images/upsLetter" + randomLetter + ".gif";
-    // } else {
-    //   newCupcake.src = "images/letter" + randomLetter + ".gif";
-    // }
 
     newCupcake.src = "images/letter" + randomLetter + ".png";
 
@@ -510,29 +440,6 @@ function generateCupcakesAfterWin() {
     newCupcake.style.position = "absolute";
     var hzPosInVW = 20;                           // dummy value, supposed to never be used
     newCupcake.style.top = (Math.random()*30 + 25) + "vh";
-    // var rotateSpeed = (Math.random()*180 - 90);
-    // var adjAngle = randomAngle;
-
-    // if (randomAngle > 330 || randomAngle < 30) {              // if the cupcake is flying upward...
-    //   // if (adjAngle > 330) {
-    //   //   adjAngle = randomAngle-360;
-    //   // }
-    //   // do {
-    //   //   randomHzMovement = Math.random()*80 - 40;             // random horizontal movement is a value between -40 and +40
-    //   //   hzPosInVW = ((45-1.6667*adjAngle) + randomHzMovement);
-    //   // } while (hzPosInVW < -5 || hzPosInVW > 95);
-    //   newCupcake.style.left = hzPosInVW + "vw";
-    //   newCupcake.style.top = "100vh";
-
-    // } else {                                                  // if the cupcake is flying downward...
-    //   adjAngle = randomAngle-150;
-    //   do {
-    //     randomHzMovement = Math.random()*80 - 40;             // random horizontal movement is a value between -40 and +40
-    //     hzPosInVW = (1.6667*adjAngle + randomHzMovement);
-    //   } while (hzPosInVW < -5 || hzPosInVW > 95);
-    //   newCupcake.style.left = hzPosInVW + "vw";
-    //   newCupcake.style.top = "-5vh";                      // used to be -10vh before top stripe
-    // }
 
     if (sideOfScreenToStartFrom == "left") {
       newCupcake.style.right = "100vw";
@@ -544,7 +451,6 @@ function generateCupcakesAfterWin() {
 
     newCupcake.setAttribute("id","cupcake"+cupcakeCount);
 
-    // newCupcake.style.transform = "rotate(" + randomAngle + "deg)";
     var cupcakeMovementVectorArray = calculateCupcakeVectors(randomAngle);
 
     document.body.appendChild(newCupcake);
@@ -554,12 +460,8 @@ function generateCupcakesAfterWin() {
     function frame() {
       var cupcakeHzPos = window.getComputedStyle(newCupcake).left;            // get the cupcake's current horizontal position
       var cupcakeVtPos = window.getComputedStyle(newCupcake).top;             // get the cupcake's current vertical position
-      // var cupcakeAngle = window.getComputedStyle(newCupcake).transform;             // get the cupcake's current vertical position
       cupcakeHzPos = Number(cupcakeHzPos.slice(0,-2));         // cut the "px" tail off the horizontal position, so it's just a number
       cupcakeVtPos = Number(cupcakeVtPos.slice(0,-2));        // cut the "px" tail off the vertical position, so it's just a number
-      // cupcakeAngle = cupcakeAngle.slice(0,-4);                // cut the "deg" tail off the angle so it's just a number
-      // cupcakeAngle = Number(cupcakeAngle.slice(7));        // cut the "deg" tail off the angle so it's just a number
-      // console.log(cupcakeAngle);
 
       if (cupcakeHzPos < 0-(window.innerWidth*0.1) || cupcakeHzPos > window.innerWidth*1.1 || cupcakeVtPos < 0-(window.innerWidth*0.1) || cupcakeVtPos > window.innerHeight+window.innerWidth*0.1) {
         cupcakeCount--;
@@ -568,11 +470,9 @@ function generateCupcakesAfterWin() {
 
         cupcakeHzPos = cupcakeHzPos + cupcakeMovementVectorArray[0]*speedMultiplier;
         cupcakeVtPos = cupcakeVtPos - cupcakeMovementVectorArray[1]*speedMultiplier;
-        // cupcakeAngle = cupcakeAngle + rotateSpeed;
       }
       newCupcake.style.left = cupcakeHzPos + "px";
       newCupcake.style.top = cupcakeVtPos + "px";
-      // newCupcake.style.transform = "rotate(" + cupcakeAngle + "deg)";
     }         // end of FRAME function
 
   }
@@ -601,13 +501,12 @@ function generateCupcakesAfterWin() {
 </script>
 
 <body>
-<!-- <body onload="showAll()"> -->
 
 <div id="wholescreen">
 
   <div id="startingCurtain">
-    <img id="startingPictureGif" src="images/cupcake vanilla.png" onclick="startingPictureGoUp()">
-    CUPCAKE<br>WORDS
+    <img id="startingCurtainPicture" src="images/cupcake vanilla.png" onclick="startingPictureGoUp()">
+    <p id="gameTitle" onclick="startingPictureGoUp()">CUPCAKE<br>WORDS</p>
     <div id="imgCreditReq" onclick="displayImageCredits()">
       Image and sound credits
     </div>
@@ -624,20 +523,11 @@ function generateCupcakesAfterWin() {
       Image of <b>pond</b> is adapted from "Pond Water Outdoor", by Pixabay user Clker-Free-Vector-Images, and is licensed under the Pixabay license.<br>
       Image of <b>baker girl</b> is adapted from "Girl Cookies Cooking", by Pixabay user GraphicMama-team, and is licensed under the Pixabay license.<br>
       Images of <b>small cupcakes</b> she holds are "Cake Bakery Food", by Pixabay user Hsaart, "Muffin Happy Birthday The Sweetness", by Pixabay user KatarzynaTyl, and "Cupcake Chocolate Icing Smarties", by Pixabay user Clker-Free-Vector-Images, all licensed under the Pixabay license.<br><br>
-      <!-- <b>Background image</b> is adapted from "Lesser Flamingos, Lake Amboseli" by Flickr user Ray in Manila, licensed under <a href="https://creativecommons.org/licenses/by/2.0/">Creative Commons Attribution 2.0 Generic</a>.<br>
-      Image of California leaf-nosed <b>bat</b>, by Alan Harper, is licensed under <a href="https://creativecommons.org/licenses/by-nc/3.0/">Creative Commons Attribution-NonCommercial 3.0 Unported</a>.<br>
-      Image of <b>baseball bat</b> is adapted from "baseball bat" by Erik Jaeger, licensed under <a href="https://creativecommons.org/licenses/by-nc/2.0/">Creative Commons Attribution-NonCommercial 2.0 Generic</a>.<br>
-      <b>"Cat"</b>, by Flickr user anileated, is licensed under <a href="https://creativecommons.org/licenses/by/2.0/">Creative Commons Attribution 2.0 Generic</a>.<br>
-      Image of <b>chat</b> is adapated from "Teen Chat" by Flickr user Alex Proimos, licensed under <a href="https://creativecommons.org/licenses/by-nc/2.0/">Creative Commons Attribution-NonCommercial 2.0 Generic</a>.<br>
-      Image of <b>hat</b> is adapted from "Hat" by Flickr user Sami Taipale, licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/2.0/">Creative Commons Attribution-NonCommercial-ShareAlike 2.0 Generic</a>.<br>
-      Image of <b>rat</b> by Joanna Servaes is licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0">Creative Commons Attribution-ShareAlike 3.0 Unported</a>.<br><br>
-      Chomp sound effect is adapted from <a href="https://freesound.org/people/scottemoil/sounds/188440/">"Chomping"</a> by scottemoil on <a href="https://freesound.org/">Freesound</a>, and is in the public domain.<br><br> -->
       All other images are in the public domain.<br><br>
       <span id="backToTitleScreen" onclick="closeImageCreditDisplay()">Go back</span>
     </div>
   </div>
 
-<div id="statLetter1"></div>
 <div id="statLetter2">INK</div>
 
 <img id="greenButton" src="images/greenButton.png" onclick="buttonPushed()">
@@ -657,7 +547,7 @@ function generateCupcakesAfterWin() {
 
 <img id="wrongX" src="images/wrongX.png">
 
-</div> <!-- this is the WHOLESCREEN div -->
+</div> <!-- end of WHOLESCREEN div -->
 
 <div id="gameOverScreen">
 </div>
