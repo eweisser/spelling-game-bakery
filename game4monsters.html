@@ -263,6 +263,26 @@ display: inline-block;
   100%  {top: 0vh;}
 }
 
+.cupcakeImgElement {
+  animation: cupcakeRotation 2s linear infinite;
+}
+
+@keyframes cupcakeRotation {
+  0%    {transform: rotate(0deg);}
+  100%  {transform: rotate(360deg);}
+}
+
+#goodJobDiv {
+  font-size: 36pt;
+  font-weight: 900;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.goodJobMessage {
+  width: 5vw;
+}
+
 
 
 
@@ -401,7 +421,7 @@ function beltStoppedInRange(element) {
   document.getElementById("movingLetter2").style.animationPlayState = "paused";
 
   if (vocabularyTargetLetter[currentVocabularyIndex] == element.src[element.src.length-5]) {  // right answer!
-    if (currentVocabularyIndex == 7) {    // there are 8 words in our game; if they spell the last word right...
+    if (currentVocabularyIndex == 1) {    // there are 8 words in our game; if they spell the last word right...
       document.getElementById("gameOverScreen").style.animationPlayState = "running";     // drop the "game over" screen
       generateCupcakesAfterWin();   // run the flying cupcakes animation
       window.setInterval(generateCupcakesAfterWin, 800);
@@ -418,20 +438,15 @@ function beltStoppedInRange(element) {
 }
 
 function generateCupcakesAfterWin() {
-  if (cupcakeCount < 5) {         // how many cupcakes do you want on screen at once?
+  if (cupcakeCount < 3) {         // how many cupcakes do you want on screen at once?
     cupcakeCount++;
     var speedMultiplier = 10;
     
     var newCupcake = document.createElement("IMG");
     newCupcake.setAttribute("class", "cupcakeImgElement");
-    var randomLetter = String.fromCharCode(65 + Math.random()*26);           // this was for the whole alphabet
-    var awaitedLetter = "";
+    var randomLetter = String.fromCharCode(65 + Math.random()*26);           // this is for the whole alphabet
 
     newCupcake.style.width = "9vw";         // used to be 10vw
-
-    do {
-      var randomAngle = Math.random()*360;
-    } while ( (randomAngle >= 30 && randomAngle <= 150) || (randomAngle >= 210 && randomAngle <= 330) );
 
     newCupcake.src = "images/letter" + randomLetter + ".png";
 
@@ -439,7 +454,9 @@ function generateCupcakesAfterWin() {
 
     newCupcake.style.position = "absolute";
     var hzPosInVW = 20;                           // dummy value, supposed to never be used
-    newCupcake.style.top = (Math.random()*30 + 25) + "vh";
+    newCupcake.style.top = (Math.random()*30 + 30) + "vh";
+    var initialUpwardVelocity = (Math.random()*10);
+    var upwardVelocity = initialUpwardVelocity;
 
     if (sideOfScreenToStartFrom == "left") {
       newCupcake.style.right = "100vw";
@@ -451,13 +468,14 @@ function generateCupcakesAfterWin() {
 
     newCupcake.setAttribute("id","cupcake"+cupcakeCount);
 
-    var cupcakeMovementVectorArray = calculateCupcakeVectors(randomAngle);
+    var cupcakeMovementVectorArray = calculateCupcakeVectors(17);
 
     document.body.appendChild(newCupcake);
 
     var cupcakeAnimation = setInterval(frame, 10);
 
     function frame() {
+
       var cupcakeHzPos = window.getComputedStyle(newCupcake).left;            // get the cupcake's current horizontal position
       var cupcakeVtPos = window.getComputedStyle(newCupcake).top;             // get the cupcake's current vertical position
       cupcakeHzPos = Number(cupcakeHzPos.slice(0,-2));         // cut the "px" tail off the horizontal position, so it's just a number
@@ -469,16 +487,19 @@ function generateCupcakesAfterWin() {
       } else {
 
         cupcakeHzPos = cupcakeHzPos + cupcakeMovementVectorArray[0]*speedMultiplier;
-        cupcakeVtPos = cupcakeVtPos - cupcakeMovementVectorArray[1]*speedMultiplier;
+        cupcakeVtPos = cupcakeVtPos - upwardVelocity;
       }
       newCupcake.style.left = cupcakeHzPos + "px";
       newCupcake.style.top = cupcakeVtPos + "px";
+
+      upwardVelocity = upwardVelocity - 0.1;
+
     }         // end of FRAME function
 
   }
 
   function calculateCupcakeVectors(cupcakeAngle) {
-    var cupcakeMovementVectorArray = [0,0];
+    var cupcakeMovementVectorArray = [0,-0.2];
     if (sideOfScreenToStartFrom == "left") {
       cupcakeMovementVectorArray[0] = Math.random()+0.5;
     } else {
@@ -550,6 +571,16 @@ function generateCupcakesAfterWin() {
 </div> <!-- end of WHOLESCREEN div -->
 
 <div id="gameOverScreen">
+  <div id="goodJobDiv">
+    <img class="goodJobMessage" src="images/letterG.png">
+    <img class="goodJobMessage" src="images/letterO.png">
+    <img class="goodJobMessage" src="images/letterO.png">
+    <img class="goodJobMessage" src="images/letterD.png">
+    &nbsp;&nbsp;&nbsp;
+    <img class="goodJobMessage" src="images/letterJ.png">
+    <img class="goodJobMessage" src="images/letterO.png">
+    <img class="goodJobMessage" src="images/letterB.png">!
+  </div>
 </div>
 
 
