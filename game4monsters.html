@@ -13,7 +13,7 @@
   bottom: 100vh;
   width: 10vw;
   animation-name: movingLetterRiseFall;
-  animation-duration: 2s;   /* 2s for faster, 4s for slower */
+  animation-duration: 4s;   /* 2s for faster, 4s for slower */
   animation-iteration-count: infinite;
   animation-timing-function: linear;
   animation-fill-mode: forwards;
@@ -33,11 +33,11 @@
   bottom: 100vh;
   width: 10vw;
   animation-name: movingLetterRiseFall2;
-  animation-duration: 2s;     /* 2s for faster, 4s for slower */
+  animation-duration: 4s;     /* 2s for faster, 4s for slower */
   animation-iteration-count: infinite;
   animation-timing-function: linear;
   animation-fill-mode: forwards;
-  animation-delay: 1s;      /* 1s for faster, 2s for slower */
+  animation-delay: 2s;      /* 1s for faster, 2s for slower */
 }
 
 @keyframes movingLetterRiseFall2 {
@@ -421,7 +421,7 @@ function beltStoppedInRange(element) {
   document.getElementById("movingLetter2").style.animationPlayState = "paused";
 
   if (vocabularyTargetLetter[currentVocabularyIndex] == element.src[element.src.length-5]) {  // right answer!
-    if (currentVocabularyIndex == 1) {    // there are 8 words in our game; if they spell the last word right...
+    if (currentVocabularyIndex == 7) {    // there are 8 words in our game; if they spell the last word right...
       document.getElementById("gameOverScreen").style.animationPlayState = "running";     // drop the "game over" screen
       generateCupcakesAfterWin();   // run the flying cupcakes animation
       window.setInterval(generateCupcakesAfterWin, 800);
